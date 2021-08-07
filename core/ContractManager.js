@@ -64,6 +64,7 @@ class ContractManager {
     }
 
     joinContract = async(publicKeyBuffer, callback) => {
+        console.log(publicKeyBuffer);
         var publicKeyLeft = '0x' + publicKeyBuffer.toString('hex', 0, 32);
         var publicKeyRight = '0x' + publicKeyBuffer.toString('hex', 32, 64);
 
