@@ -87,8 +87,17 @@ class EventHandler {
             })
         }
     }
+    pullContactInfo = async () =>{
+        var contactAddresses = this.storageManager.contactAddresses;
+        console.log(contactAddresses);
+
+        for( var i=0; i < contactAddresses.length; i++){
+            await this.contractManager.getMemberInfo(contactAddresses[i], Constant.Relationship.Connected);
+        }
+    }
 
     pullMessageEvents = async (blockNumber, currentDataBlock) => {
+        // console.log("HELLO THIS IS A PULLING!!");
         var messagesSent = await this.contractManager.getPastEvents('messageSentEvent', {
             filter: {from: this.myAddress},
             fromBlock: currentDataBlock + 1,
@@ -100,20 +109,29 @@ class EventHandler {
             toBlock: blockNumber
         });
 
+
         var iSent=0;
         var iReceived=0;
+        // console.log(messagesReceived[0]);
+        console.log(messagesSent.length, messagesReceived.length);
+        console.log("--------------------");
+
         while (iSent < messagesSent.length || iReceived < messagesReceived.length) {
             if (iSent >= messagesSent.length) {
+                await this.contractManager.addContact(messagesReceived[iReceived].returnValues.from);
                 this.storageManager.addMessageFromFriendEvent(messagesReceived[iReceived]);
                 iReceived++;
             } else if (iReceived >= messagesReceived.length) {
+                await this.contractManager.addContact(messagesSent[iSent].returnValues.to);
                 this.storageManager.addMyMessageEvent(messagesSent[iSent]);
                 iSent++;
             } else {
                 if (messagesSent[iSent].blockNumber < messagesReceived[iReceived].blockNumber) {
+                    await this.contractManager.addContact(messagesSent[iSent].returnValues.to);
                     this.storageManager.addMyMessageEvent(messagesSent[iSent]);
                     iSent++;
                 } else {
+                    await this.contractManager.addContact(messagesReceived[iReceived].returnValues.from);
                     this.storageManager.addMessageFromFriendEvent(messagesReceived[iReceived]);
                     iReceived++;
                 }
@@ -135,8 +153,9 @@ class EventHandler {
             var blockNumber = await web3.eth.getBlockNumber();
 
             if (blockNumber > currentDataBlock) {
-                await this.pullContactEvents(blockNumber, currentDataBlock);
+                // await this.pullContactEvents(blockNumber, currentDataBlock);
                 await this.pullMessageEvents(blockNumber, currentDataBlock);
+                await this.pullContactInfo();
                 this.storageManager.setCurrentDataBlock(blockNumber);
             
             }

@@ -88,25 +88,37 @@ class ContractManager {
             });
     }
 
-    addContact = async (address, callback) => {
+    addContact = async (address) => {
         console.log(address);
-
-        var method = this.contract.methods.addContact(address);
-        this.transactionManager.executeMethod(method)
-            .on(Constant.EVENT.ON_APPROVED, (txHash) => {
-                if (callback) callback(Constant.EVENT.ON_APPROVED);
-            })
-            .on(Constant.EVENT.ON_RECEIPT, (receipt) => {
-                if (callback) callback(Constant.EVENT.ON_RECEIPT);
-            })
-            .on(Constant.EVENT.ON_ERROR, (error, txHash) => {
-                appDispatcher.dispatch({
-                    action: Constant.EVENT.ENCOUNTERED_ERROR,
-                    message: error.message,
-                    title: "Error"
-                });
-                if (callback) callback(Constant.EVENT.ON_ERROR);
+        var memberInfo = await this.contract.methods.members(address).call();
+        // console.log(address, memberInfo.isMember);
+        if (memberInfo.isMember){
+            var publicKey = '04' + memberInfo.publicKeyLeft.substr(2) + memberInfo.publicKeyRight.substr(2);
+            this.storageManager.addContact(address, publicKey);
+        }else{
+            console.log("EEROR");
+            appDispatcher.dispatch({
+                action: Constant.EVENT.ENCOUNTERED_ERROR,
+                message: "This address is not a member of Ethereum Messenger :(",
+                title: "Error"
             });
+        }
+        // var method = this.contract.methods.addContact(address);
+        // this.transactionManager.executeMethod(method)
+        //     .on(Constant.EVENT.ON_APPROVED, (txHash) => {
+        //         if (callback) callback(Constant.EVENT.ON_APPROVED);
+        //     })
+        //     .on(Constant.EVENT.ON_RECEIPT, (receipt) => {
+        //         if (callback) callback(Constant.EVENT.ON_RECEIPT);
+        //     })
+        //     .on(Constant.EVENT.ON_ERROR, (error, txHash) => {
+        //         appDispatcher.dispatch({
+        //             action: Constant.EVENT.ENCOUNTERED_ERROR,
+        //             message: error.message,
+        //             title: "Error"
+        //         });
+        //         if (callback) callback(Constant.EVENT.ON_ERROR);
+        //     });
     }
 
     acceptContactRequest = async (address, callback) => {
@@ -151,6 +163,7 @@ class ContractManager {
 
     // A message will be encrypted locally before sending to the smart contract
     sendMessage = async (toAddress, publicKey, message) => {
+        
         var publicKeyBuffer = Buffer.from(publicKey, 'hex');
         var encryptedRaw = utils.encrypt(message, this.accountManager.computeSecret(publicKeyBuffer));
         var encryptedMessage = '0x' + encryptedRaw.toString('hex');

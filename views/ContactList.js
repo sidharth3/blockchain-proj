@@ -25,12 +25,28 @@ class ContactList extends Component {
         this.state = {contactAddresses: [], isAccepting: [], selectedAddress: ""};
     }
 
-    componentDidMount() {
-        this.setState({contactAddresses: this.account.storageManager.contactAddresses});
+    
 
+    updateContact(){
+        var rawContactArray = this.account.storageManager.contactAddresses;
+        var contactArray = [];
+        for(var i = 0; i < rawContactArray.length; i++ ){
+            if(rawContactArray[i].toLowerCase() != window.localStorage.address && rawContactArray[i] != Config.ENV.ContractAddress){
+                contactArray.push(rawContactArray[i]);
+            }
+        }
+        // console.log(this.account.storageManager.contactAddresses);
+        this.setState({contactAddresses: contactArray});
+    }
+
+    componentDidMount() {
+        // this.setState({contactAddresses: this.account.storageManager.contactAddresses});
+        this.updateContact();
+        
         appDispatcher.register((payload) => {
             if (payload.action == Constant.EVENT.CONTACT_LIST_UPDATED) {
-                this.setState({contactAddresses: this.account.storageManager.contactAddresses});
+
+                this.updateContact();
             }
         })
     }
@@ -77,14 +93,20 @@ class ContactList extends Component {
     }
 
     listItemClicked = (address, event) => {
-        if (this.account.storageManager.contacts[address].relationship == Constant.Relationship.Connected &&
-            this.account.storageManager.contacts[address].publicKey) {
-            appDispatcher.dispatch({
-                action: Constant.ACTION.SELECT_CONTACT,
-                data: address
-            });
-            this.setState({selectedAddress: address});
-        }
+        // if (this.account.storageManager.contacts[address].relationship == Constant.Relationship.Connected &&
+        //     this.account.storageManager.contacts[address].publicKey) {
+        //     appDispatcher.dispatch({
+        //         action: Constant.ACTION.SELECT_CONTACT,
+        //         data: address
+        //     });
+        //     this.setState({selectedAddress: address});
+        // }
+        appDispatcher.dispatch({
+            action: Constant.ACTION.SELECT_CONTACT,
+            data: address
+        });
+        this.setState({selectedAddress: address});
+
     }
 
     render() {
@@ -172,7 +194,7 @@ class ContactList extends Component {
                 <div style={{height: height - 40, overflow: 'auto', float: 'left', width:'100%'}}>
                     {htmlContent}
                 </div>
-                <AddContactModal contractManager={this.contractManager} />
+                <AddContactModal contractManager={this.contractManager} storageManager={this.account.storageManager} />
             </div>
         );
     }

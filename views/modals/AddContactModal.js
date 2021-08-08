@@ -13,12 +13,14 @@ import {
 } from 'semantic-ui-react';
 import appDispatcher from '../../core/AppDispatcher';
 import Constant from '../../support/Constant';
+import ContactList from '../ContactList'; 
 
 class AddContactModal extends Component {
     constructor(props) {
         super(props);
         this.state = { modalOpen: false, errorMessage: "", address: ""}
         this.contractManager = props.contractManager;
+        this.storageManager = props.storageManager;
     }
     
     componentWillMount() {
@@ -38,6 +40,10 @@ class AddContactModal extends Component {
     handleAddContact = (e) => {
         if (web3.utils.isAddress(this.state.address)) {
             this.contractManager.addContact(this.state.address);
+            // this.storageManager.addContact(this.state.address);
+            // appDispatcher.dispatch({
+            //     action: Constant.EVENT.CONTACT_LIST_UPDATED
+            // });
             this.setState({errorMessage: "", modalOpen: false});
         } else {
             this.setState({errorMessage: "Invalid ethereum address"});

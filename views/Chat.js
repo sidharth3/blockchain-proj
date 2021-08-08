@@ -44,12 +44,15 @@ class Chat extends Component {
                 this.setState({address: payload.data, 
                     publicKey: this.account.storageManager.contacts[payload.data].publicKey,
                     messages: this.account.storageManager.contacts[payload.data].messages});
+                // console.log(this.account.storageManager.contacts[payload.data].publicKey);
                 
             } else if (this.state.address != "" && payload.action == Constant.EVENT.MESSAGES_UPDATED) {
                 if (payload.data == undefined || payload.data == this.state.address) {
                     this.setState({messages: this.account.storageManager.contacts[this.state.address].messages})
                 }
             }
+            
+
         })
     }
 
@@ -65,7 +68,9 @@ class Chat extends Component {
         const { publicKey, messages } = this.state;
 
         var messageItems = [];
+        
         if (publicKey) {
+            // console.log(this.state);
             if (messages.length > 0) {
                 for (var i=0;i<messages.length;i++) {
                     var decryptedMessage;

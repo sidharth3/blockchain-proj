@@ -4,10 +4,13 @@
 import appDispatcher from '../core/AppDispatcher';
 import Constant from '../support/Constant';
 import utils from '../support/Utils';
+import Config from '../support/Config';
 
 class LocalStorageManager {
     initialize() {
+
         this.contacts = {}; // Map Ethereum addresses with all messages and information belong to an address
+        // this.contactAddresses = [];
         this.loadLocalContactAddresses();
         this.loadContactMessages();
         appDispatcher.dispatch({
@@ -19,7 +22,16 @@ class LocalStorageManager {
         this.contactAddresses = []; // A list of Ethereum addresses in the contact list of the current user.
         if (typeof(Storage) != 'undefined') {
             var rawContactAddresses = window.localStorage.contactAddresses;
+            // var contactArray = [];
+            // var userAddress = window.localStorage.address;
+            // console.log(Config.ENV.ContractAddress);
             if (rawContactAddresses != undefined) {
+                // var rawContactArray = JSON.parse(rawContactAddresses);
+                // for(var i = 0; i < rawContactArray.length; i++ ){
+                //     if(rawContactArray[i].toLowerCase() != userAddress && rawContactArray[i] != Config.ENV.ContractAddress){
+                //         this.contactAddresses.push(rawContactArray[i]);
+                //     }
+                // }
                 this.contactAddresses = JSON.parse(rawContactAddresses);
             }
         }
@@ -35,24 +47,29 @@ class LocalStorageManager {
         }
     }
 
-    addContact = (address, relationship) => {
-        var data = this.contacts[address];
-        if (data == undefined) {
-            var member = {};
-            member.messages = [];
-            member.relationship = relationship;
-            window.localStorage.setItem(address, JSON.stringify(member));
-            this.contacts[address] = member;
-
+    addContact = (address,  publicKey) => {
+        if(!this.contactAddresses.includes(address)){
+            var user = {};
+            user.messages = [];
+            user.relationship = 2;
+            user.publicKey = publicKey;
+            window.localStorage.setItem(address, JSON.stringify(user));
+            this.contacts[address] = user;
             this.contactAddresses.push(address);
             window.localStorage.setItem('contactAddresses', JSON.stringify(this.contactAddresses));
+
         }
+        appDispatcher.dispatch({
+            action: Constant.EVENT.CONTACT_LIST_UPDATED
+        });
     }
+ 
+
 
     updateContact = (address, publicKey, name, avatarUrl, relationship) => {
         var data = this.contacts[address];
         if (data != undefined) {
-            if (data.relationship < relationship) {
+            if (relationship) {
                 data.relationship = relationship;
             }
             if (publicKey) {
@@ -65,6 +82,9 @@ class LocalStorageManager {
                 data.avatarUrl = avatarUrl;
             }
             window.localStorage.setItem(address, JSON.stringify(data));
+            appDispatcher.dispatch({
+                action: Constant.EVENT.CONTACT_LIST_UPDATED
+            });
         }
     }
 
@@ -91,6 +111,11 @@ class LocalStorageManager {
             this.updateContact(events[i].returnValues["from"], "", "", "", Constant.Relationship.Connected);
         }
     }
+    addContactFromMessage = (event) =>{
+        var data = event.returnValues;
+        var senderAddress = data.from;
+
+    }
 
     addMessageFromFriendEvent = (event) => {
         var data = event.returnValues;
@@ -100,6 +125,7 @@ class LocalStorageManager {
         message.message = data.message;
         message.encryption = utils.hexStringToAsciiString(data.encryption);
         message.txHash = event.transactionHash;
+        //TODO: push from address to contactAddress
 
         this.contacts[fromAddress].messages.push(message);
 
@@ -109,7 +135,8 @@ class LocalStorageManager {
     addMyMessageEvent = (event) => {
         var data = event.returnValues;
         var localMessages = this.contacts[data.to];
-        
+        //TODO: push to address to contactAddress
+
         var noMatchingItem = true;
         for (var i=localMessages.messages.length-1; i>=0;i--) {
             if (event.transactionHash == localMessages.messages[i].txHash) {
@@ -130,6 +157,7 @@ class LocalStorageManager {
     }
 
     addMyLocalMessage = (message, to, encryption, txHash) => {
+        // console.log(this.contacts[to]);
         var message = {message, encryption, txHash};
         message.status = Constant.SENT_STATUS.PENDING;
         message.isMine = true;
