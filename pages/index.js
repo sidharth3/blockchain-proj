@@ -59,7 +59,7 @@ class Index extends Component {
         var contractManager = this.app.contractManager;
         var transactionDispatcher = this.app.getTransactionDispatcher();
 
-        var listHeight = this.state.height - 140;
+        var listHeight = this.state.height - 250;
 
         console.log(account);
 
@@ -76,7 +76,7 @@ class Index extends Component {
                     <HeaderMenu account={account} transactionDispatcher={transactionDispatcher}/>
                     <ErrorModal />
                     <TransactionModal dispatcher={transactionDispatcher} />
-                    <Grid column={2} style={{paddingTop: 100}}>
+                    <Grid column={2} style={{paddingTop: 10}}>
                         <Grid.Row stretched>
                             <Grid.Column width={6} style={{height: listHeight + "px", float: 'left'}}>
                                 <ContactList height={listHeight} account={account} contractManager={contractManager}/>

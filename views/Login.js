@@ -97,7 +97,7 @@ class Login extends Component {
                 <link rel="shortcut icon" href="/static/images/favicon.ico" />
                 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.12/semantic.min.css"></link>
             </Head>
-                <Image src='static/images/ethereum-messenger-logo.png' height={150} />
+                <Image src='static/images/ethereum-messenger-logo.png' height={150} style={{ marginTop: "1.5vw"}} />
                 <br/>
                 <h1 className="title"  font-family="Tahoma">
                 Welcome to Ethereum Messenger! 
@@ -208,7 +208,6 @@ class Login extends Component {
 
         .body{
           display: grid;
-          margin-top: 1rem;
           grid-template-columns: 1fr 3fr;
           grid-template-areas: "contactList messageBody";
           gap: 15px;
@@ -353,7 +352,6 @@ class Login extends Component {
         }
 
         .landingPage {
-          padding: 1rem 0;
           flex: 1;
           display: flex;
           flex-direction: column;

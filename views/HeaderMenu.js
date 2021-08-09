@@ -135,7 +135,7 @@ class HeaderMenu extends Component {
         }
 
         return (
-            <Menu fixed='top' color='blue' inverted>
+            <Menu fluid color='blue' inverted>
                 <Head>
                 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.12/semantic.min.css"></link>
                 </Head>
