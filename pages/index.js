@@ -78,7 +78,7 @@ class Index extends Component {
                     <ErrorModal />
                     <SettingsModal account={account} />
                     <TransactionModal dispatcher={transactionDispatcher} />
-                <Grid column={2} style={{paddingTop: 100}}>
+                <Grid column={2} style={{paddingTop: 50, width:"100%"}}>
                     <Grid.Row stretched>
                         <Grid.Column width={6} style={{height: listHeight + "px", float: 'left'}}>
                             <ContactList height={listHeight} account={account} contractManager={contractManager}/>
@@ -88,7 +88,7 @@ class Index extends Component {
                         </Grid.Column>
                     </Grid.Row>
                 </Grid>
-                <Footer />
+            
                 </Container>
                 );
         }else{

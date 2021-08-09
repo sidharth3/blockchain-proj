@@ -68,25 +68,8 @@ class HeaderMenu extends Component {
     }
 
     handleDropdownClicked = (event, data) => {
-        if (data.name == 'updateProfile') {
-            appDispatcher.dispatch({
-                action: Constant.ACTION.OPEN_UPDATE_PROFILE
-            });
-        } else if (data.name == 'logOutItem') {
-            this.clearAllData();
-            window.location.reload();
-        } else if (data.name == 'settingsItem') {
-            appDispatcher.dispatch({
-                action: Constant.ACTION.OPEN_SETTINGS_MODAL
-            })
-        } 
-         else if (data.name == 'changeEthNetwork') {
-            if (data.networkid != Config.ENV.EthNetworkId) {
-                Config.ENV.EthNetworkId = data.networkid;
-                this.removeNetworkDependentData();
-                window.location.reload();
-            }
-        }
+        this.clearAllData();
+        window.location.reload(); 
     }
 
     removeNetworkDependentData = () => {
@@ -142,19 +125,14 @@ class HeaderMenu extends Component {
                     var memberInfo;
                     if (this.account.isJoined) {
                         memberInfo = (
-                            <Dropdown item trigger={dropdownTrigger}>
-                                <Dropdown.Menu>
-                                    <Dropdown.Item name='updateProfile' onClick={this.handleDropdownClicked}>
-                                        <Icon name='write'/>Update profile
-                                    </Dropdown.Item>
-                                    <Dropdown.Item name='settingsItem' onClick={this.handleDropdownClicked}>
-                                        <Icon name='settings'/>Settings
-                                    </Dropdown.Item>
-                                    <Dropdown.Item name='logOutItem' onClick={this.handleDropdownClicked}>
-                                        <Icon name='log out'/>Log out
-                                    </Dropdown.Item>
-                                </Dropdown.Menu>
-                            </Dropdown>
+                            <div className='logOut' name='logOutItem' onClick={this.handleDropdownClicked}>
+                                <Icon name='log out'/>Log out
+                                    <style jsx>{`
+                                        .logOut:hover{
+                                            cursor:pointer
+                                        }
+                                    `}</style>       
+                            </div>
                         );
                     } else {
                         memberInfo = (
@@ -175,14 +153,7 @@ class HeaderMenu extends Component {
                     }
 
                     accountInfo = (
-                        <Menu.Menu position='right'>
-                            <Menu.Item>
-                            <Dropdown item text={Config.ENV.NetworkName}>
-                                    <Dropdown.Menu>
-                                        {networkItems}
-                                    </Dropdown.Menu>
-                                </Dropdown>
-                            </Menu.Item>
+                        <Menu.Menu position='right '>
                             <Menu.Item>
                                 <List>
                                 <List.Item>
@@ -216,16 +187,13 @@ class HeaderMenu extends Component {
         }
 
         return (
-            <Menu fixed='top' color='teal' inverted>
+            <Menu fixed='top' color='blue' inverted>
                 <Head>
                 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.12/semantic.min.css"></link>
                 </Head>
-                <Container>
-                <Menu.Item>
-                    <a href='/'><Image src='static/images/logo_small.png' height={44} /></a>
-                </Menu.Item>
+                <div>
                     {this.account ? accountInfo: (<div></div>)}
-                </Container>
+                </div>
             </Menu>
         );
     }

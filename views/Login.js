@@ -90,7 +90,7 @@ class Login extends Component {
 
     render() {
         return (
-            <Container>
+            <div className='landingPage' >
             <Head>
                 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.12/semantic.min.css"></link>
             </Head>
@@ -105,13 +105,15 @@ class Login extends Component {
                 <div className='loginBox'>
                 <div className='loginTitle'> Sign in to Block-Forever</div>
                 <div className='loginForm' > 
-                    <Message hidden={this.state.walletAddress != ""}>
-                        <Header >Enter Private Key:</Header>
-                        <Input fluid 
+                <form hidden={this.state.walletAddress != ""} className='loginForm' onSubmit={(e)=>this.nextClicked(e)}> 
+                    <label className='loginFields' htmlFor="priKey">Enter Private Key:</label>
+                    <input value={this.state.privateKey} className='loginFields privateKey' type="text" onChange={(e) => this.setState({privateKey: e.target.value})}  required />
+                    <button className='loginFields submitButton' type="submit">Login</button>
+                </form>
+                        {/* <Input fluid 
                             value={this.state.privateKey} 
                             onChange={(e) => this.setState({privateKey: e.target.value})} 
-                            action={{ color: 'blue', labelPosition: 'right', icon: 'angle right', content: 'Next', onClick: (e)=>this.nextClicked(e)}}/>
-                    </Message>
+                            action={{ color: 'blue', labelPosition: 'right', icon: 'angle right', content: 'Next', onClick: (e)=>this.nextClicked(e)}}/> */}
                     
                     <Message error header={this.state.errorMessage} hidden={this.state.errorMessage == ""}/>
                     
@@ -144,7 +146,319 @@ class Login extends Component {
                     
                 </div>
                 </div>
-            </Container>
+                
+                
+    <style jsx>{`
+        .header{
+          display: flex;
+          flex-direction: row;
+          background-color: #0070f3;
+          justify-content: center;
+        }
+
+        .contactListHeader{
+          font-weight: 500;
+        }
+
+        .contactImg{
+          width: 10%;
+          height: auto;
+          transition: filter 0.15s ease
+        }
+
+        .contactName{
+          font-size: 0.8rem;
+          margin-left: 0.2rem;
+          transition: color 0.15s ease
+        }
+
+        .contactBox{
+          display: flex;
+          overflow: scroll;
+          align-items: center;
+          margin-top: 0.5rem;
+          border: 2px transparent solid;
+          border-radius: 10px;
+          padding: 0.5rem;
+          transition: border-color 0.15s ease, background-color 0.15s ease;
+        }
+
+        .contactBox :hover,
+        .contactBox :focus,
+        .contactBox :active {
+          border-color: #0070f3;
+          
+        }
+
+        .contactAdd{
+          display: flex;
+          margin-top: 1rem;
+          margin-bottom: 0.5rem;
+          justify-content: space-between;
+        }
+
+        .publicKey{
+          width: 60%
+        }
+
+        .body{
+          display: grid;
+          margin-top: 1rem;
+          grid-template-columns: 1fr 3fr;
+          grid-template-areas: "contactList messageBody";
+          gap: 15px;
+          padding: 0 1rem;
+        }
+        
+        .bodyCols{
+          border: 1px solid #eaeaea;
+          border-radius: 10px;
+          padding: 0.5rem;
+        }
+
+        .messageRows{
+          border: 1px solid #eaeaea;
+          border-radius: 10px;
+          padding: 0.5rem;
+        }
+
+        .contactList{
+          grid-area: contactList;
+          display: flex;
+          flex-direction: column;
+        }
+
+        .messageBody{
+          grid-area: messageBody;
+          display: grid;
+          grid-template-rows: 3fr 1fr;
+          grid-template-areas: "conversation" "message";
+          gap: 15px;
+        }
+
+        .conversation{
+          grid-area: conversation;
+        }
+
+        .message{
+          max-height: 10vh;
+          grid-area: message;
+          display: grid;
+          grid-template-columns: 7fr 1fr;
+          gap: 15px;
+        }
+
+        .headerItems{
+          margin: 1rem;
+          color: white;
+          padding: 0.5rem;
+        }
+
+        .balance{
+          background: orange;
+          border-radius: 10px
+        }
+        
+        .container {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          
+        }
+
+        .loginBox{
+          width: 60%;
+          display: flex;
+          flex-direction: column;
+          padding: 2.5rem 0.5rem;
+          justify-content: center;
+          align-items: center;
+          border: 1px solid #eaeaea;
+          border-radius: 10px;
+          transition: color 0.15s ease, border-color 0.15s ease;
+        }
+
+        .loginForm{
+          display: flex;
+          flex-direction: column;
+          padding: 0.5rem 1.8rem;
+          align-items: center;
+          width: 100%
+        }
+
+        .loginFields{
+          margin-top: 0.5rem
+        }
+
+        .privateKey{
+          padding: 0.5rem 0.5rem;
+          width: 100%
+        }
+
+        .submitButton{
+          background-color: transparent;
+          width: 40%;
+          align-self: center;
+          padding: 0.5rem 0.5rem;
+          border-radius: 10px;
+          font-weight: 700;
+          transition: color 0.15s ease, border-color 0.15s ease;
+        }
+      
+        .submitButton :hover,
+        .submitButton :focus,
+        .submitButton :active {
+          border-color: transparent;
+          color:  #fff;
+          background-color:#0070f3 ;
+        }
+        
+        .addButton{
+          background-color: transparent;
+          align-self: center;
+          padding: 0.5rem 0.5rem;
+          border-radius: 10px;
+          font-weight: 700;
+          transition: color 0.15s ease, border-color 0.15s ease;
+        }
+      
+        .addButton :hover,
+        .addButton :focus,
+        .addButton :active {
+          border-color: transparent;
+          color:  #fff;
+          background-color:#0070f3 ;
+        }
+
+        .sendButton{
+          background-color: transparent;
+          align-self: center;
+          padding: 0.5rem 0.5rem;
+          border-radius: 10px;
+          font-weight: 700;
+          transition: color 0.15s ease, border-color 0.15s ease;
+        }
+      
+        .sendButton :hover,
+        .sendButton :focus,
+        .sendButton :active {
+          border-color: transparent;
+          color:  #fff;
+          background-color:#0070f3 ;
+        }
+
+        .landingPage {
+          padding: 5rem 0;
+          flex: 1;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+        }
+
+        footer {
+          width: 100%;
+          height: 100px;
+          border-top: 1px solid #eaeaea;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+
+        footer img {
+          margin-left: 0.5rem;
+        }
+
+        footer a {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+
+        a {
+          color: inherit;
+          text-decoration: none;
+        }
+
+        .title a {
+          color: #0070f3;
+          text-decoration: none;
+        }
+
+        .title a:hover,
+        .title a:focus,
+        .title a:active {
+          text-decoration: underline;
+        }
+
+        .title {
+          margin: 0;
+          line-height: 1.15;
+          font-size: 3rem;
+          font-family: "Helvetica Neue"
+        }
+        .loginTitle {
+          margin: 0;
+          line-height: 1.15;
+          font-size: 2rem;
+          font-weight: 700;
+          color: #0070f3;
+        }
+
+        .title,
+        .description {
+          text-align: center;
+        }
+
+        .description {
+          line-height: 1.5;
+          font-size: 1.5rem;
+        }
+
+        .loginBox:hover,
+        .loginBox:focus,
+        .loginBox:active {
+          
+          border-color: #0070f3;
+        }
+
+        .card h3 {
+          margin: 0 0 1rem 0;
+          font-size: 1.5rem;
+        }
+
+        .card p {
+          margin: 0;
+          font-size: 1.25rem;
+          line-height: 1.5;
+        }
+
+        .logo {
+          height: 1em;
+        }
+
+        @media (max-width: 600px) {
+          .grid {
+            width: 100%;
+            flex-direction: column;
+          }
+        }
+      `}</style>
+
+      <style jsx global>{`
+        html,
+        body {
+          padding: 0;
+          margin: 0;
+          font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
+            Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue,
+            sans-serif;
+        }
+
+        * {
+          box-sizing: border-box;
+        }
+      `}</style>
+            </div>
         );
     }
 }

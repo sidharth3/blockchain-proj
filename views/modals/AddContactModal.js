@@ -52,25 +52,15 @@ class AddContactModal extends Component {
 
     render() {
         return (
-            <Modal
-                open={this.state.modalOpen}
-                onClose={this.handleClose}
-                size='small'
-                >
-                <Header icon="" content="Add contact by address" />
-                    <Modal.Content>
-                        <Input fluid value={this.state.address} onChange={event => this.setState({address: event.target.value})}/>
-                        <Message error header={this.state.errorMessage} hidden={this.state.errorMessage == ""}/>
-                    </Modal.Content>
-                    <Modal.Actions>
-                    <Button color='orange' onClick={this.handleAddContact}>
-                        <Icon name='checkmark' /> Add
-                    </Button>
-                    <Button color='grey' onClick={this.handleClose}>
-                        <Icon name='close' /> Close
-                    </Button>
-                </Modal.Actions>
-            </Modal>
+            <div>
+                <Header content="Enter Public Address of Friend" />
+                    <div style={{display:'flex',justifyContent:"space-between"}}>
+                        <Input style={{width:"80%"}} value={this.state.address} onChange={event => this.setState({address: event.target.value})}/>
+                        <Button style={{marginLeft:8}} color='orange' onClick={this.handleAddContact}>
+                            Add
+                        </Button>
+                    </div>
+            </div>
         );
     }
 }

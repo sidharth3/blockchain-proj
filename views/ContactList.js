@@ -10,7 +10,9 @@ import {
     Button,
     Icon,
     Header,
-    Popup
+    Popup,
+    Input,
+    Message,
 } from 'semantic-ui-react';
 import appDispatcher from '../core/AppDispatcher';
 import Constant from '../support/Constant';
@@ -188,13 +190,12 @@ class ContactList extends Component {
         return (
             <div style={{width: '100%'}}>
                 <div style={{height: 40, width: '100%'}}>
+                <AddContactModal contractManager={this.contractManager} storageManager={this.account.storageManager} />
                 <Header as='h2' style={{float: 'left'}}>Contact list</Header>
-                <Button color='blue' style={{float: 'right'}} onClick={this.addContactClicked}><Icon name='add user'></Icon>Add</Button>
                 </div>
                 <div style={{height: height - 40, overflow: 'auto', float: 'left', width:'100%'}}>
                     {htmlContent}
                 </div>
-                <AddContactModal contractManager={this.contractManager} storageManager={this.account.storageManager} />
             </div>
         );
     }

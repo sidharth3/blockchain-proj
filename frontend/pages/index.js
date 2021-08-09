@@ -1,5 +1,6 @@
 import Head from 'next/head'
 import { useState } from 'react'
+import AppManager from '../core/AppManager';
 
 export default function Home() {
   
@@ -17,7 +18,13 @@ export default function Home() {
     "0x650E694D1Fe9E333A0D4Ac51dB44e51Ec7F24618",
   ])
 
+  let app = new AppManager()
 
+  useEffect(() => {
+    app.initialize()
+  });
+
+  
   function onLoginSubmit(e){
     e.preventDefault();
     setLoginLoading(true)
