@@ -10,6 +10,7 @@ class LocalStorageManager {
     initialize() {
 
         this.contacts = {}; // Map Ethereum addresses with all messages and information belong to an address
+        this.reload = 0;
         // this.contactAddresses = [];
         this.loadLocalContactAddresses();
         this.loadContactMessages();
@@ -182,6 +183,8 @@ class LocalStorageManager {
             window.localStorage.setItem("currentDataBlock", "0");
             window.localStorage.setItem("ethNetwork", "4");
         }
+        // window.location.reload();
+        
     }
 
     getPrivateKey() {

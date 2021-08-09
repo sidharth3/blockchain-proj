@@ -15,6 +15,7 @@ import {
     Segment
 } from 'semantic-ui-react';
 import HeaderMenu from '../views/HeaderMenu';
+import Login from '../views/Login';
 import web3 from '../ethereum/web3';
 import PrivateKeyModal from '../views/modals/EnterPrivateKeyModal';
 import UpdateProfileModal from '../views/modals/UpdateProfileModal';
@@ -59,32 +60,46 @@ class Index extends Component {
         var transactionDispatcher = this.app.getTransactionDispatcher();
 
         var listHeight = this.state.height - 140;
-        return (
-            <Container>
-                <Head>
-                    <title>EtherChat - Decentralized messaging on Ethereum network</title>
-                </Head>
 
-                <UpdateProfileModal account={account} contractManager={contractManager} />
-                <PrivateKeyModal account={account} />
-                <HeaderMenu account={account} transactionDispatcher={transactionDispatcher} contractManager={contractManager}/>
-                <GuideModal />
-                <ErrorModal />
-                <SettingsModal account={account} />
-                <TransactionModal dispatcher={transactionDispatcher} />
-            <Grid column={2} style={{paddingTop: 100}}>
-                <Grid.Row stretched>
-                    <Grid.Column width={6} style={{height: listHeight + "px", float: 'left'}}>
-                        <ContactList height={listHeight} account={account} contractManager={contractManager}/>
-                    </Grid.Column>
-                    <Grid.Column width={10} style={{height: listHeight + "px", overflow: 'auto', float: 'left'}}>
-                        <Chat height={listHeight} account={account} contractManager={contractManager}/>
-                    </Grid.Column>
-                </Grid.Row>
-            </Grid>
-            <Footer />
-            </Container>
-        );
+        console.log(account);
+
+        if (account.isJoined){
+            console.log("WTF WRE U DOING HERE")
+            this.app.storageManager.reload = false;
+            return (
+                <Container>
+                    <Head>
+                        <title>EtherChat - Decentralized messaging on Ethereum network</title>
+                    </Head>
+
+                    <UpdateProfileModal account={account} contractManager={contractManager} />
+                    <PrivateKeyModal account={account} />
+                    <HeaderMenu account={account} transactionDispatcher={transactionDispatcher}/>
+                    <ErrorModal />
+                    <SettingsModal account={account} />
+                    <TransactionModal dispatcher={transactionDispatcher} />
+                <Grid column={2} style={{paddingTop: 100}}>
+                    <Grid.Row stretched>
+                        <Grid.Column width={6} style={{height: listHeight + "px", float: 'left'}}>
+                            <ContactList height={listHeight} account={account} contractManager={contractManager}/>
+                        </Grid.Column>
+                        <Grid.Column width={10} style={{height: listHeight + "px", overflow: 'auto', float: 'left'}}>
+                            <Chat height={listHeight} account={account} contractManager={contractManager}/>
+                        </Grid.Column>
+                    </Grid.Row>
+                </Grid>
+                <Footer />
+                </Container>
+                );
+        }else{
+            return (
+                
+                <Login account={account} storageManager={this.app.storageManager} contractManager={contractManager}/>
+
+            );
+            
+        }
+
     }
 }
 

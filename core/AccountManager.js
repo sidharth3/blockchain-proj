@@ -63,16 +63,27 @@ class AccountManager {
     }
 
     storePrivateKey = (privateKey) => {
-        var isValid = false;
         try {
             var privateKeyBuffer = Buffer.from(privateKey, 'hex');
             this.walletAccount = Wallet.fromPrivateKey(privateKeyBuffer);
             this.storageManager.storePrivateKeyAndAddress(privateKey, this.getAddress());
-            isValid = true;
+            this.updateBalance();
         } catch (err) {
+            console.log(err.message);
         }
-        this.updateBalance();
-        return isValid;
+    }
+
+    checkPrivateKey = (privateKey) => {
+        try{
+            var privateKeyBuffer = Buffer.from(privateKey, 'hex');
+            var walletAcc = Wallet.fromPrivateKey(privateKeyBuffer);
+            var walletAddress = walletAcc.getAddress().toString('hex');
+            return walletAddress;
+
+        }catch(err){
+            console.log(err.message);
+            return false;
+        }
     }
 
     getPublicKeyBuffer() {

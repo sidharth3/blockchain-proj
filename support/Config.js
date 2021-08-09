@@ -3,23 +3,9 @@
 
 module.exports.NETWORK_LIST = [
     {
-        id: 1,
-        name: 'Main Network',
-        contractAddress: '0x163485b3cddc7b3202e56ad31fb1921a00759f21',
-        explorerUrl: 'https://etherscan.io/',
-        providerUrl: 'https://mainnet.infura.io/Q2aBIgYNhIB60VsqyrN1'
-    },
-    // {
-    //     id: 4,
-    //     name: 'Rinkeby Test Net',
-    //     contractAddress: '0xa8d27Eda6518Ac6CcF3eb7Ec100B1fc8ef850e80',
-    //     explorerUrl: 'https://rinkeby.etherscan.io/',
-    //     providerUrl: 'https://rinkeby.infura.io/Q2aBIgYNhIB60VsqyrN1'
-    // }
-    {
         id: 4,
         name: 'Rinkeby Test Net',
-        contractAddress: '0x6f8EAEB65247b9e286f6a93246354Ab7D334c634',
+        contractAddress: '0xc938559f04854bc457211F84855a40a7A5AF3045',
         explorerUrl: 'https://rinkeby.etherscan.io/',
         providerUrl: 'https://rinkeby.infura.io/v3/f021c9ca63cd413aa4ed5415cb9ebdd7'
     }

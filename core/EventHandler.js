@@ -157,13 +157,18 @@ class EventHandler {
                 await this.pullMessageEvents(blockNumber, currentDataBlock);
                 await this.pullContactInfo();
                 this.storageManager.setCurrentDataBlock(blockNumber);
-            
             }
         } catch (err) {
             console.log(err.message);
         }
+        // console.log(this.storageManager.reload);
+        // if(this.storageManager.reload > 0){
+        //     window.location.reload();
+        // }
+        
 
         setTimeout(this.pullEvents, 5000);
+        
     }
 
     start = () => {

@@ -95,8 +95,6 @@ class HeaderMenu extends Component {
 
     handleJoinClicked = () => {
         var publicKeyBuffer = this.account.getPublicKeyBuffer();
-        // console.log(this.contractManager);
-
         this.contractManager.joinContract(publicKeyBuffer, (resultEvent) => {
             if (resultEvent == Constant.EVENT.ON_REJECTED || resultEvent == Constant.EVENT.ON_ERROR) {
                 this.setState({isJoinButtonLoading: false});

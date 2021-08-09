@@ -28,6 +28,7 @@ class AppManager {
             if (payload.action == Constant.EVENT.CONTRACT_READY) {
                 var accountAddress = this.account.getAddress();
                 if (accountAddress) {
+                    console.log("asdfasdfadsfa");
                     this.startEventHandler(accountAddress);
                     this.getProfileFromContract();
                 }

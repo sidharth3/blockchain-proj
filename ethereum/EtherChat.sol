@@ -26,6 +26,7 @@ pragma solidity >=0.4.20;
 
 contract EtherChat {
     event messageSentEvent(address indexed from, address indexed to, bytes message, bytes32 encryption);
+    event addressJoinEvent(address indexed from);
     // event addContactEvent(address indexed from, address indexed to);
     // event acceptContactEvent(address indexed from, address indexed to);
     // event profileUpdateEvent(address indexed from, bytes32 name, bytes32 avatarUrl);
@@ -50,6 +51,8 @@ contract EtherChat {
         
         Member memory newMember = Member(publicKeyLeft, publicKeyRight, "", "", 0, true);
         members[msg.sender] = newMember;
+
+        emit addressJoinEvent(msg.sender);
     }
     
     function sendMessage(address to, bytes memory message, bytes32 encryption) public onlyMember {
