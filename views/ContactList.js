@@ -18,6 +18,7 @@ import appDispatcher from '../core/AppDispatcher';
 import Constant from '../support/Constant';
 import Config from '../support/Config';
 import AddContactModal from './modals/AddContactModal';
+import { Container } from 'semantic-ui-react';
 
 class ContactList extends Component {
     constructor(props) {
@@ -95,14 +96,6 @@ class ContactList extends Component {
     }
 
     listItemClicked = (address, event) => {
-        // if (this.account.storageManager.contacts[address].relationship == Constant.Relationship.Connected &&
-        //     this.account.storageManager.contacts[address].publicKey) {
-        //     appDispatcher.dispatch({
-        //         action: Constant.ACTION.SELECT_CONTACT,
-        //         data: address
-        //     });
-        //     this.setState({selectedAddress: address});
-        // }
         appDispatcher.dispatch({
             action: Constant.ACTION.SELECT_CONTACT,
             data: address
@@ -188,15 +181,13 @@ class ContactList extends Component {
         }
         
         return (
-            <div style={{width: '100%'}}>
-                <div style={{height: 40, width: '100%'}}>
+            <Container>
                 <AddContactModal contractManager={this.contractManager} storageManager={this.account.storageManager} />
                 <Header as='h2' style={{float: 'left'}}>Contact list</Header>
-                </div>
                 <div style={{height: height - 40, overflow: 'auto', float: 'left', width:'100%'}}>
                     {htmlContent}
                 </div>
-            </div>
+            </Container>
         );
     }
 }

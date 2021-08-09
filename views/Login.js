@@ -5,7 +5,8 @@ import {
     Container,
     Button,
     Header,
-    Icon
+    Icon,
+    Image
 } from 'semantic-ui-react';
 import Head from 'next/head';
 import web3 from '../ethereum/web3';
@@ -92,14 +93,18 @@ class Login extends Component {
         return (
             <div className='landingPage' >
             <Head>
+                <title>Ethereum Messenger</title>
+                <link rel="shortcut icon" href="/static/images/favicon.ico" />
                 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.12/semantic.min.css"></link>
             </Head>
-                <h1 className="title">
-                Welcome to Block-Forever! 
+                <Image src='static/images/ethereum-messenger-logo.png' height={150} />
+                <br/>
+                <h1 className="title"  font-family="Tahoma">
+                Welcome to Ethereum Messenger! 
                 </h1>
 
                 <p className="description">
-                Send a private message to your friend that will never be lost
+                Send a private message to your friends that will never be lost!
                 </p>
 
                 <div className='loginBox'>
@@ -108,7 +113,7 @@ class Login extends Component {
                 <form hidden={this.state.walletAddress != ""} className='loginForm' onSubmit={(e)=>this.nextClicked(e)}> 
                     <label className='loginFields' htmlFor="priKey">Enter Private Key:</label>
                     <input value={this.state.privateKey} className='loginFields privateKey' type="text" onChange={(e) => this.setState({privateKey: e.target.value})}  required />
-                    <button className='loginFields submitButton' type="submit">Login</button>
+                    <button className='loginFields submitButton' type="submit">Next</button>
                 </form>
                         {/* <Input fluid 
                             value={this.state.privateKey} 
@@ -122,8 +127,8 @@ class Login extends Component {
                             Join Ethereum Messenger as <br/> 
                             <Container fluid textAlign='center' style={{ marginTop: "1vw"}}>
                                 <b style={{fontSize: "2vw"}}>0x{this.state.walletAddress}</b><br/>
-                                <Button onClick={this.handleBack} color = 'blue'  style={{ marginTop: "1vw"}} >Back</Button>
-                                <Button onClick={this.handleJoin} color = 'orange' style={{ marginLeft: "0.5vw"}}>Join</Button>
+                                {/* <Button onClick={this.handleBack} color = 'blue'  style={{ marginTop: "1vw"}} >Back</Button> */}
+                                <Button onClick={this.handleJoin} color = 'orange' style={{ marginTop: "0.5vw"}}>Join</Button>
                             </Container>
                         </Message.Header>
                     </Message>
@@ -348,7 +353,7 @@ class Login extends Component {
         }
 
         .landingPage {
-          padding: 5rem 0;
+          padding: 1rem 0;
           flex: 1;
           display: flex;
           flex-direction: column;
@@ -394,7 +399,6 @@ class Login extends Component {
           margin: 0;
           line-height: 1.15;
           font-size: 3rem;
-          font-family: "Helvetica Neue"
         }
         .loginTitle {
           margin: 0;

@@ -69,26 +69,23 @@ class Index extends Component {
             return (
                 <Container>
                     <Head>
-                        <title>EtherChat - Decentralized messaging on Ethereum network</title>
+                        <title>Ethereum Messenger</title>
+                        <link rel="shortcut icon" href="/static/images/favicon.ico" />
                     </Head>
 
-                    <UpdateProfileModal account={account} contractManager={contractManager} />
-                    <PrivateKeyModal account={account} />
                     <HeaderMenu account={account} transactionDispatcher={transactionDispatcher}/>
                     <ErrorModal />
-                    <SettingsModal account={account} />
                     <TransactionModal dispatcher={transactionDispatcher} />
-                <Grid column={2} style={{paddingTop: 50, width:"100%"}}>
-                    <Grid.Row stretched>
-                        <Grid.Column width={6} style={{height: listHeight + "px", float: 'left'}}>
-                            <ContactList height={listHeight} account={account} contractManager={contractManager}/>
-                        </Grid.Column>
-                        <Grid.Column width={10} style={{height: listHeight + "px", overflow: 'auto', float: 'left'}}>
-                            <Chat height={listHeight} account={account} contractManager={contractManager}/>
-                        </Grid.Column>
-                    </Grid.Row>
-                </Grid>
-            
+                    <Grid column={2} style={{paddingTop: 100}}>
+                        <Grid.Row stretched>
+                            <Grid.Column width={6} style={{height: listHeight + "px", float: 'left'}}>
+                                <ContactList height={listHeight} account={account} contractManager={contractManager}/>
+                            </Grid.Column>
+                            <Grid.Column width={10} style={{height: listHeight + "px", overflow: 'auto', float: 'left'}}>
+                                <Chat height={listHeight} account={account} contractManager={contractManager}/>
+                            </Grid.Column>
+                        </Grid.Row>
+                    </Grid>
                 </Container>
                 );
         }else{

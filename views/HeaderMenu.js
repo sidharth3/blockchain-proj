@@ -67,7 +67,7 @@ class HeaderMenu extends Component {
         }
     }
 
-    handleDropdownClicked = (event, data) => {
+    handleLogout = (event, data) => {
         this.clearAllData();
         window.location.reload(); 
     }
@@ -76,23 +76,6 @@ class HeaderMenu extends Component {
         this.account.storageManager.removeNetworkDependentData();
     }
 
-    handleJoinClicked = () => {
-        var publicKeyBuffer = this.account.getPublicKeyBuffer();
-        this.contractManager.joinContract(publicKeyBuffer, (resultEvent) => {
-            if (resultEvent == Constant.EVENT.ON_REJECTED || resultEvent == Constant.EVENT.ON_ERROR) {
-                this.setState({isJoinButtonLoading: false});
-            } else if (resultEvent == Constant.EVENT.ON_RECEIPT) {
-                window.location.reload();
-            }
-        });
-        this.setState({isJoinButtonLoading: true});
-    }
-
-    handleImportPrivateKeyClicked = () => {
-        appDispatcher.dispatch({
-            action: Constant.ACTION.OPEN_PRIVATE_KEY_MODAL
-        });
-    }
 
     render() {
         var accountInfo = (<div></div>);
@@ -113,74 +96,39 @@ class HeaderMenu extends Component {
                         );
                     }
 
-                    var networkItems = [];
-                    for (var i=0;i<Config.NETWORK_LIST.length;i++) {
-                        networkItems.push(
-                            <Dropdown.Item key={'networkItem' + i} networkid={Config.NETWORK_LIST[i].id} name='changeEthNetwork' onClick={this.handleDropdownClicked}>
-                                {Config.NETWORK_LIST[i].name}
-                            </Dropdown.Item>
-                        );
-                    }
 
-                    var memberInfo;
+                    var logOutButton;
                     if (this.account.isJoined) {
-                        memberInfo = (
-                            <div className='logOut' name='logOutItem' onClick={this.handleDropdownClicked}>
-                                <Icon name='log out'/>Log out
-                                    <style jsx>{`
-                                        .logOut:hover{
-                                            cursor:pointer
-                                        }
-                                    `}</style>       
-                            </div>
-                        );
-                    } else {
-                        memberInfo = (
-                            <Button color='orange' onClick={this.handleJoinClicked} 
-                                loading={this.state.isJoinButtonLoading} 
-                                disabled={this.state.isJoinButtonLoading}>Join {Constant.APP_NAME}</Button>
+                        logOutButton = (
+                            <Button color='red' onClick={this.handleLogout} >
+                                <Icon name='log out'/>Log out</Button>
                         );
                     }
 
-                    var pendingTxItem;
-                    if (this.state.numPendingTx > 0) {
-                        pendingTxItem = (
-                            <Label as='a' color='yellow' href={addressExplorerUrl} target='_blank'>
-                                <Icon name='spinner' loading/>
-                                {this.state.numPendingTx} pending tx
-                            </Label>
-                        );
-                    }
+                    // var pendingTxItem;
+                    // if (this.state.numPendingTx > 0) {
+                    //     pendingTxItem = (
+                    //         <Label as='a' color='yellow' href={addressExplorerUrl} target='_blank'>
+                    //             <Icon name='spinner' loading/>
+                    //             {this.state.numPendingTx} pending tx
+                    //         </Label>
+                    //     );
+                    // }
 
                     accountInfo = (
-                        <Menu.Menu position='right '>
-                            <Menu.Item>
-                                <List>
-                                <List.Item>
-                                    <a href={addressExplorerUrl} target='_blank'>
-                                        {this.state.address}
-                                    </a>
-                                </List.Item>
-                                <List.Item>
-                                    Balance: <Label as='a' href={addressExplorerUrl} target='_blank' color='orange'>{parseFloat(web3.utils.fromWei("" +this.state.balance, 'ether')).toFixed(8) + ' ETH' }</Label>
-                                    {pendingTxItem}
-                                </List.Item>
-                                </List>
-                            </Menu.Item>
-                            <Menu.Item>
-                                {memberInfo}
-                            </Menu.Item>
-                        </Menu.Menu>
+                        <Menu.Item>
+                            <List>
+                            <List.Item>
+                                Address: <Label as='a' href={addressExplorerUrl} target='_blank' color='green'>{this.state.address}</Label>
+                            </List.Item>
+                            <List.Item>
+                                Balance: <Label as='a' href={addressExplorerUrl} target='_blank' color='green'>{parseFloat(web3.utils.fromWei("" +this.state.balance, 'ether')).toFixed(8) + ' ETH' }</Label>
+                                {/* {pendingTxItem} */}
+                            </List.Item>
+                            </List>
+                        </Menu.Item>
                     );
-                } else {
-                    accountInfo = (
-                        <Menu.Menu position='right'>
-                            <Menu.Item>
-                                <Button onClick={this.handleImportPrivateKeyClicked} color='blue'>Import private key</Button>
-                            </Menu.Item>
-                        </Menu.Menu>
-                    );
-                }
+                } 
             } else {
                 accountInfo = (<Loader inverted active />);
             }
@@ -191,9 +139,15 @@ class HeaderMenu extends Component {
                 <Head>
                 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.12/semantic.min.css"></link>
                 </Head>
-                <div>
-                    {this.account ? accountInfo: (<div></div>)}
-                </div>
+                <Menu.Item>
+                    <a href='/'><Image src='static/images/ethereum-messenger-logo.png' height={50} /></a>
+                </Menu.Item>
+                {this.account ? accountInfo: (<div></div>)}
+                <Menu.Menu position='right'>
+                    <Menu.Item>
+                        {logOutButton}
+                    </Menu.Item>
+                </Menu.Menu>
             </Menu>
         );
     }

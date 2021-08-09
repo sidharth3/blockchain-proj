@@ -91,7 +91,7 @@ class Chat extends Component {
                         if (messages[i].status == Constant.SENT_STATUS.PENDING) {
                             messageItems.push(
                                 <p align='right' key={'msg_' + i}><Label pointing='right' 
-                                    as='span' size='large' color='blue' style={{fontWeight: '100', lineHeight: '1.5'}}>
+                                    as='span' size='large' color='teal' style={{fontWeight: '100', lineHeight: '1.5'}}>
                                     <Icon name='circle notched' loading />
                                     {decryptedMessage}
                                     {lastObjectAnchor}
@@ -111,8 +111,8 @@ class Chat extends Component {
                             messageItems.push(
                                 <p align='right' key={'msg_' + i}>
                                     <a href={explorerUrl} target='_blank'><Label pointing='right' 
-                                        as='span' key={'msg_' + i} size='large' color='blue' 
-                                        style={{fontWeight: '100', lineHeight: '1.5'}}>
+                                        as='span' key={'msg_' + i} size='large' color='teal' 
+                                        style={{font: '10', lineHeight: '1.5' }}>
                                         {decryptedMessage}
                                         {lastObjectAnchor}
                                 </Label></a></p>
@@ -123,7 +123,7 @@ class Chat extends Component {
                             <p key={'msg_' + i}>
                                 <a href={explorerUrl} target='_blank'>
                                     <Label pointing='left' as='span' 
-                                    key={'msg_' + i} size='large' style={{fontWeight: '100', lineHeight: '1.5'}}>
+                                    key={'msg_' + i} size='large' style={{font: '100', lineHeight: '1.5'}}>
                                     {decryptedMessage}
                                     {lastObjectAnchor}
                             </Label></a></p>
@@ -173,7 +173,7 @@ class TextInput extends Component {
             <Input fluid disabled={this.state.disabled}
                 value={this.state.content} 
                 onChange={(e) => this.setState({content: e.target.value})} 
-                action={{ color: 'orange', labelPosition: 'right', icon: 'send', content: 'Send', onClick: (e)=>this.sendMessageClicked()}}/>
+                action={{ color: 'blue', labelPosition: 'right', icon: 'send', content: 'Send', onClick: (e)=>this.sendMessageClicked()}}/>
         );
     }
 }
