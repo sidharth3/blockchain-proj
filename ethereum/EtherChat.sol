@@ -1,39 +1,10 @@
-/*
-MIT License
-
-Copyright (c) 2018 Nguyen Vu Nhat Minh
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-*/
-
 pragma solidity >=0.4.20;
 
 contract EtherChat {
     event messageSentEvent(address indexed from, address indexed to, bytes message, bytes32 encryption);
     event addressJoinEvent(address indexed from);
-    // event addContactEvent(address indexed from, address indexed to);
-    // event acceptContactEvent(address indexed from, address indexed to);
-    // event profileUpdateEvent(address indexed from, bytes32 name, bytes32 avatarUrl);
+    
 
-    
-    // enum RelationshipType {NoRelation, Requested, Connected, Blocked}
-    
     struct Member {
         bytes32 publicKeyLeft;
         bytes32 publicKeyRight;
@@ -43,7 +14,6 @@ contract EtherChat {
         bool isMember;
     }
     
-    // mapping (address => mapping (address => RelationshipType)) relationships;
     mapping (address => Member) public members;
 
     function join(bytes32 publicKeyLeft, bytes32 publicKeyRight) public {
@@ -56,7 +26,6 @@ contract EtherChat {
     }
     
     function sendMessage(address to, bytes memory message, bytes32 encryption) public onlyMember {
-        // require(relationships[to][msg.sender] == RelationshipType.Connected);
 
         if (members[to].messageStartBlock == 0) {
             members[to].messageStartBlock = block.number;
@@ -64,13 +33,6 @@ contract EtherChat {
         
         emit messageSentEvent(msg.sender, to, message, encryption);
     }
-    
-    
-    // function updateProfile(bytes32 name, bytes32 avatarUrl) public onlyMember {
-    //     members[msg.sender].name = name;
-    //     members[msg.sender].avatarUrl = avatarUrl;
-    //     emit profileUpdateEvent(msg.sender, name, avatarUrl);
-    // }
     
     modifier onlyMember() {
         require(members[msg.sender].isMember == true);

@@ -7,9 +7,6 @@ import Constant from '../support/Constant';
 import utils from '../support/Utils';
 import crypto from 'crypto';
 
-/**
- * Responsible for interacting with the Ethereum smart contract
- */
 
 class ContractManager {
     constructor(accountManager, storageManager) {
