@@ -20,9 +20,9 @@ var _web = require('../ethereum/web3');
 
 var _web2 = _interopRequireDefault(_web);
 
-var _EtherChat = require('../ethereum/build/EtherChat.json');
+var _ethmessenger = require('../ethereum/build/ethmessenger.json');
 
-var _EtherChat2 = _interopRequireDefault(_EtherChat);
+var _ethmessenger2 = _interopRequireDefault(_ethmessenger);
 
 var _TransactionManager = require('./TransactionManager');
 
@@ -65,7 +65,7 @@ var ContractManager = function ContractManager(accountManager, storageManager) {
                 switch (_context.prev = _context.next) {
                     case 0:
                         _context.next = 2;
-                        return new _web2.default.eth.Contract(JSON.parse(_EtherChat2.default.interface), _Config2.default.ENV.ContractAddress);
+                        return new _web2.default.eth.Contract(JSON.parse(_ethmessenger2.default.interface), _Config2.default.ENV.ContractAddress);
 
                     case 2:
                         _this.contract = _context.sent;
@@ -453,7 +453,7 @@ var ContractManager = function ContractManager(accountManager, storageManager) {
 // Create a web3 contract object that represent the ethereum smart contract
 
 
-// Get current account profile from EtherChat contract's storage
+// Get current account profile from ethmessenger contract's storage
 
 
 // checkAcc = async (address) =>{

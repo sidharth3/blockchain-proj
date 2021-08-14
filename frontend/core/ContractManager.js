@@ -1,5 +1,5 @@
 import web3 from '../ethereum/web3';
-import compiledContract from '../ethereum/build/EtherChat.json';
+import compiledContract from '../ethereum/build/ethmessenger.json';
 import TransactionsManager from './TransactionManager';
 import appDispatcher from './AppDispatcher';
 import Config from '../support/Config';
@@ -42,7 +42,7 @@ class ContractManager {
         return x; 
     }
 
-    // Get current account profile from EtherChat contract's storage
+    // Get current account profile from ethmessenger contract's storage
     getProfile = async (address) => {
         var result = await this.contract.methods.members(this.accountManager.getAddress()).call();
         var profile = {};

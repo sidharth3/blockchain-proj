@@ -48,7 +48,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 /**
  * Manage all core components of this web app includes:
- *  - contractManager: to interactive with EtherChat smart contract
+ *  - contractManager: to interactive with ethmessenger smart contract
  *  - storageManager: store/retrive data from window.localStorage
  *  - account: manage the local ethereum account
  * 
@@ -114,7 +114,7 @@ var AppManager = function () {
             });
         }
 
-        // Start to listen to EtherChat's events
+        // Start to listen to ethmessenger's events
 
     }, {
         key: 'getTransactionDispatcher',

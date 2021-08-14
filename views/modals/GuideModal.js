@@ -52,20 +52,20 @@ class GuideModal extends Component {
                 onClose={this.handleClose}
                 size='small'
                 >
-                <Header icon="" content="Welcome to EtherChat" />
+                <Header icon="" content="Welcome to ethmessenger" />
                     <Modal.Content style={{fontSize: '1.2em'}}>
                         <h2>Please read our note carefully</h2>
-                        <p>EtherChat is an Ethereum app that allows you to send encrypted messages via 
+                        <p>ethmessenger is an Ethereum app that allows you to send encrypted messages via 
                             a smart contract that only you and the recipient of a message can decrypt it.
-                            EtherChat can operate without any centralized server</p>
+                            ethmessenger can operate without any centralized server</p>
                         <p>You will be required to key in your Ethereum private key in order to 
-                            use EtherChat. Make sure that you understand the risk of giving your 
+                            use ethmessenger. Make sure that you understand the risk of giving your 
                             private key to any third party.</p>
-                        <p>We recommend you to try EtherChat on Rinkeby test net. You can get free ether on Rinkeby at https://faucet.rinkeby.io/.</p>
-                        <p>All orange colored buttons you see on EtherChat.co will require you to pay a small transaction fee. 
+                        <p>We recommend you to try ethmessenger on Rinkeby test net. You can get free ether on Rinkeby at https://faucet.rinkeby.io/.</p>
+                        <p>All orange colored buttons you see on ethmessenger.co will require you to pay a small transaction fee. 
                             By default, when you clicked on an orange button, a transaction will be submitted to the network automatically.
                             However, you can disable it by turning on the transaction details dialog in "Settings".</p>
-                        <p>EtherChat is an open source project and available at: <a href={Constant.GITHUB_LINK} target='_blank'>Github link</a></p>
+                        <p>ethmessenger is an open source project and available at: <a href={Constant.GITHUB_LINK} target='_blank'>Github link</a></p>
                         <p>We also published an <a href={Constant.MEDIUM_LINK} target='_blank'>article on medium</a></p>
                     </Modal.Content>
                     <Modal.Actions>

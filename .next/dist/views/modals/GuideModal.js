@@ -105,7 +105,7 @@ var GuideModal = function (_Component) {
                     fileName: _jsxFileName,
                     lineNumber: 50
                 }
-            }, _react2.default.createElement(_semanticUiReact.Header, { icon: '', content: 'Welcome to EtherChat', __source: {
+            }, _react2.default.createElement(_semanticUiReact.Header, { icon: '', content: 'Welcome to ethmessenger', __source: {
                     fileName: _jsxFileName,
                     lineNumber: 55
                 }
@@ -123,27 +123,27 @@ var GuideModal = function (_Component) {
                     fileName: _jsxFileName,
                     lineNumber: 58
                 }
-            }, 'EtherChat is an Ethereum app that allows you to send encrypted messages via a smart contract that only you and the recipient of a message can decrypt it. EtherChat can operate without any centralized server'), _react2.default.createElement('p', {
+            }, 'ethmessenger is an Ethereum app that allows you to send encrypted messages via a smart contract that only you and the recipient of a message can decrypt it. ethmessenger can operate without any centralized server'), _react2.default.createElement('p', {
                 __source: {
                     fileName: _jsxFileName,
                     lineNumber: 61
                 }
-            }, 'You will be required to key in your Ethereum private key in order to use EtherChat. Make sure that you understand the risk of giving your private key to any third party.'), _react2.default.createElement('p', {
+            }, 'You will be required to key in your Ethereum private key in order to use ethmessenger. Make sure that you understand the risk of giving your private key to any third party.'), _react2.default.createElement('p', {
                 __source: {
                     fileName: _jsxFileName,
                     lineNumber: 64
                 }
-            }, 'We recommend you to try EtherChat on Rinkeby test net. You can get free ether on Rinkeby at https://faucet.rinkeby.io/.'), _react2.default.createElement('p', {
+            }, 'We recommend you to try ethmessenger on Rinkeby test net. You can get free ether on Rinkeby at https://faucet.rinkeby.io/.'), _react2.default.createElement('p', {
                 __source: {
                     fileName: _jsxFileName,
                     lineNumber: 65
                 }
-            }, 'All orange colored buttons you see on EtherChat.co will require you to pay a small transaction fee. By default, when you clicked on an orange button, a transaction will be submitted to the network automatically. However, you can disable it by turning on the transaction details dialog in "Settings".'), _react2.default.createElement('p', {
+            }, 'All orange colored buttons you see on ethmessenger.co will require you to pay a small transaction fee. By default, when you clicked on an orange button, a transaction will be submitted to the network automatically. However, you can disable it by turning on the transaction details dialog in "Settings".'), _react2.default.createElement('p', {
                 __source: {
                     fileName: _jsxFileName,
                     lineNumber: 68
                 }
-            }, 'EtherChat is an open source project and available at: ', _react2.default.createElement('a', { href: _Constant2.default.GITHUB_LINK, target: '_blank', __source: {
+            }, 'ethmessenger is an open source project and available at: ', _react2.default.createElement('a', { href: _Constant2.default.GITHUB_LINK, target: '_blank', __source: {
                     fileName: _jsxFileName,
                     lineNumber: 68
                 }

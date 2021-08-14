@@ -7,7 +7,7 @@ const {testAccounts} = require('./testAccounts');
 const utils = require('../support/Utils');
 const web3 = new Web3(ganache.provider({accounts: testAccounts}));
 
-const compiledContract = require('../ethereum/build/EtherChat.json');
+const compiledContract = require('../ethereum/build/ethmessenger.json');
 
 let accounts;
 let contract;
@@ -244,145 +244,8 @@ describe('Sending message', () => {
     });
 });
 
-describe('Update profile', () => {
-    it('Can update profile', async () => {
-        await accountJoin(0);
 
-        var name = 'Minh NguyeN';
-        var avatarUrl = 'https://gOOgle.com';
-        await contract.methods.updateProfile(stringToHex(name), stringToHex(avatarUrl)).send({
-            from: accounts[0],
-            gas: 3000000
-        });
 
-        var profile = await contract.methods.members(accounts[0]).call();
-        assert.equal(name, hexToString(profile.name));
-        assert.equal(avatarUrl, hexToString(profile.avatarUrl));
-    });
-
-    it('Received event after updating profile', async () => {
-        await accountJoin(0);
-
-        var name = 'Minh NguyeN';
-        var avatarUrl = 'https://gOOgle.com';
-        await contract.methods.updateProfile(stringToHex(name), stringToHex(avatarUrl)).send({
-            from: accounts[0],
-            gas: 3000000
-        });
-
-        var events = await contract.getPastEvents('profileUpdateEvent',{
-            filter: {},
-            fromBlock: 0
-        });
-        var eventData = events[0].returnValues;
-        assert.equal(accounts[0], eventData.from);
-        assert.equal(name, hexToString(eventData.name));
-        assert.equal(avatarUrl, hexToString(eventData.avatarUrl));
-    });
-});
-
-describe('Blocking users', () => {
-    it('Block message from a user', async () => {
-        await accountJoin(0);
-        await accountJoin(1);
-        await addContact(0,1);
-        await acceptContactRequest(1, 0);
-        await blockMessagesFromAccountToAccount(1,0);
-
-        var hasError = false;
-        try {
-            await contract.methods.sendMessage(accounts[1], stringToHex('test message'), stringToHex('no')).send({
-                from: accounts[0],
-                gas: '3000000'
-            });
-        } catch (err) {
-            if (err) {
-                hasError = true;
-            }
-        }
-        assert(hasError);
-
-        // User 1 can send message to user 0
-        await contract.methods.sendMessage(accounts[0], stringToHex('test message'), stringToHex('no')).send({
-            from: accounts[1],
-            gas: '3000000'
-        });
-        assert(true);
-    });
-
-    it('block a not connected member', async() => {
-        var hasError = false;
-        try {
-            await blockMessagesFromAccountToAccount(0, 1);
-        } catch (err) {
-            if (err) {
-                hasError = true;
-            }
-        }
-        assert(hasError);
-
-        await accountJoin(0);
-        await accountJoin(1);
-        await addContact(0,1);
-
-        var hasError = false;
-        try {
-            await blockMessagesFromAccountToAccount(0, 1);
-        } catch (err) {
-            if (err) {
-                hasError = true;
-            }
-        }
-        assert(hasError);
-
-        await acceptContactRequest(1, 0);
-
-        var hasError = false;
-        try {
-            await blockMessagesFromAccountToAccount(0, 1);
-            await blockMessagesFromAccountToAccount(1, 0);
-        } catch (err) {
-            if (err) {
-                hasError = true;
-            }
-        }
-        assert(!hasError);
-    });
-
-    it('Unblock messages', async () => {
-        await accountJoin(0);
-        await accountJoin(1);
-        await addContact(0,1);
-        await acceptContactRequest(1, 0);
-        await blockMessagesFromAccountToAccount(1,0);
-
-        var hasError = false;
-        try {
-            await unblockMessagesFromAccountToAccount(0, 1);
-        } catch (err) {
-            if (err) {
-                hasError = true;
-            }
-        }
-        assert(hasError);
-
-        
-        hasError = false;
-        try {
-            await unblockMessagesFromAccountToAccount(1, 0);
-        } catch (err) {
-            if (err) {
-                hasError = true;
-            }
-        }
-        assert(!hasError);
-
-        var relationship = await contract.methods.getRelationWith(accounts[0]).call({
-            from: accounts[1]
-        });
-        assert.equal(2, relationship);
-    })
-});
 
 stringToHex = (text) => {
     return '0x' + Buffer.from(text, 'ascii').toString('hex');
@@ -419,16 +282,3 @@ acceptContactRequest = async (fromAccountIndex, toAccountIndex) => {
     });
 }
 
-blockMessagesFromAccountToAccount = async (fromAccountIndex, toAccountIndex) => {
-    await contract.methods.blockMessagesFrom(accounts[toAccountIndex]).send({
-        from: accounts[fromAccountIndex],
-        gas: '3000000'
-    });
-}
-
-unblockMessagesFromAccountToAccount = async (fromAccountIndex, toAccountIndex) => {
-    await contract.methods.unblockMessagesFrom(accounts[toAccountIndex]).send({
-        from: accounts[fromAccountIndex],
-        gas: '3000000'
-    });
-}

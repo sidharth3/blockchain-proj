@@ -1,5 +1,5 @@
 {
-  "name": "etherchat",
+  "name": "ethmessenger",
   "version": "1.0.0",
   "description": "Decentralized messaging on Ethereum network",
   "main": "index.js",
@@ -9,7 +9,7 @@
     "build": "next build",
     "start": "next start -p 3213"
   },
-  "author": "Minh Nguyen",
+  "author": "John Doe",
   "license": "MIT",
   "dependencies": {
     "babel-preset-es2015": "^6.24.1",

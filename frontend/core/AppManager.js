@@ -7,7 +7,7 @@ import Constant from '../support/Constant';
 
 /**
  * Manage all core components of this web app includes:
- *  - contractManager: to interactive with EtherChat smart contract
+ *  - contractManager: to interactive with ethmessenger smart contract
  *  - storageManager: store/retrive data from window.localStorage
  *  - account: manage the local ethereum account
  * 
@@ -41,7 +41,7 @@ class AppManager {
         this.account.setProfile(profile.name, profile.avatarUrl, profile.isJoined);
     }
 
-    // Start to listen to EtherChat's events
+    // Start to listen to ethmessenger's events
     startEventHandler = (accountAddress) => {
         this.eventHandler = new EventHandler(accountAddress, this.contractManager, this.storageManager);
         this.eventHandler.start();

@@ -17,7 +17,7 @@ class Terms extends Component {
         return (
             <Container>
                 <Head>
-                    <title>EtherChat - Terms of use</title>
+                    <title>ethmessenger - Terms of use</title>
                 </Head>
                 <HeaderMenu />
                 <GuideModal />

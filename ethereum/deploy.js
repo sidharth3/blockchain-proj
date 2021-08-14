@@ -3,7 +3,7 @@
 
 const HDWalletProvider = require('truffle-hdwallet-provider');
 const Web3 = require('web3');
-const compiledFactory = require('./build/EtherChat.json');
+const compiledFactory = require('./build/ethmessenger.json');
 const interface = compiledFactory.interface;
 const bytecode = compiledFactory.bytecode;
 

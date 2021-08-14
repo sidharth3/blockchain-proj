@@ -78,7 +78,7 @@ class TransactionsManager {
     }
 
     /**
-     * @description Execute a web3's method by signing and sending the raw transaction to EtherChat contract.
+     * @description Execute a web3's method by signing and sending the raw transaction to ethmessenger contract.
      * @param {*} method Web3 contract method instance, which contains method's parameters.
      */
     executeMethod(method) {
