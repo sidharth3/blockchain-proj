@@ -1,8 +1,3 @@
-
-
-=======
->>>>>>> Stashed changes
-
 import {Component} from 'react';
 import {
     Menu,

@@ -1,9 +1,5 @@
-// Copyright (c) 2018 Nguyen Vu Nhat Minh
-// Distributed under the MIT software license, see the accompanying file LICENSE
 
-module.exports.APP_NAME = "ethmessenger";
-module.exports.GITHUB_LINK = "https://github.com/nhatminh12369/ethmessenger";
-module.exports.MEDIUM_LINK = "https://medium.com/@leonardnguyen/ethmessenger-decentralized-messaging-application-on-ethereum-network-part-1-253e5078770b";
+module.exports.APP_NAME = "Ethreum-messenger";
 
 module.exports.ACTION = {
     ADD_CONTACT: 'ADD_CONTACT_ACTION',
@@ -38,9 +34,3 @@ module.exports.SENT_STATUS = {
     FAILED: 3
 }
 
-module.exports.Relationship = {
-    NoRelation: 0,
-    Requested: 1,
-    Connected: 2,
-    Blocked: 3
-}

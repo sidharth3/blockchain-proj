@@ -1,6 +1,3 @@
-// Copyright (c) 2018 Nguyen Vu Nhat Minh
-// Distributed under the MIT software license, see the accompanying file LICENSE
-
 var crypto = require('crypto');
 var wallet = require('ethereumjs-wallet');
 
@@ -47,19 +44,3 @@ exports.decrypt = (encryptedMessage, secret) => {
     return dec;
 }
 
-// exports.getPubkeyFromTransaction = (rawTx) => {
-//       var localTx = {
-//         nonce: parseInt(rawTx.nonce),
-//         gasPrice: parseInt(rawTx.gasPrice),
-//         gasLimit: parseInt(rawTx.gas),
-//         to: rawTx.to,
-//         value: parseInt(rawTx.value),
-//         r: rawTx.r,
-//         s: rawTx.s,
-//         v: rawTx.v,
-//         data: rawTx.input,
-//       };
-  
-//     var txInstance = new Transaction(localTx);
-//     return txInstance.getSenderPublicKey().toString('hex');
-//   }
