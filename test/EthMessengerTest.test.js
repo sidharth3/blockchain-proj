@@ -66,25 +66,6 @@ describe('Joining and adding contacts', () => {
         assert.equal(0, relationshipWithAccount2);
     });
 
-    it('should not be able to accept contact if there is no request', async () => {
-        accountJoin(0);
-        var hasError = false;
-        try {
-            await acceptContactRequest(0, 1);
-        } catch (err) {
-            if (err) hasError = true;
-        }
-        assert(hasError);
-
-        hasError = false;
-        await addContact(0, 1);
-        try {
-            await acceptContactRequest(0, 1);
-        } catch (err) {
-            if (err) hasError = true;
-        }
-        assert(hasError);
-    });
 
     it('confirm contact request success', async () => {
         await accountJoin(0);
